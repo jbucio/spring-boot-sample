@@ -16,7 +16,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import mx.tiid.model.db1.Actividad;
+import mx.tiid.model.db2.Realizadas;
+import mx.tiid.model.db2.Recibidas;
 import mx.tiid.model.db2.Solicitud;
 
 @Configuration
@@ -33,7 +34,7 @@ public class ConfigDB2DataSources {
 	@Bean(name = "secondEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean db2EntityManagerFactory(EntityManagerFactoryBuilder builder,
 			@Qualifier("secondDataSource") DataSource dataSource) {
-		return builder.dataSource(dataSource).packages(Solicitud.class).persistenceUnit("db2").build();
+		return builder.dataSource(dataSource).packages(Solicitud.class,Realizadas.class,Recibidas.class).persistenceUnit("db2").build();
 	}
 
 	@Bean(name = "secondTransactionManager")

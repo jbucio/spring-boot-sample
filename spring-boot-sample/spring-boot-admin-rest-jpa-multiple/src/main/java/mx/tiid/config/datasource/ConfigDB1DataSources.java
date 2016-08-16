@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import mx.tiid.model.db1.Actividad;
+import mx.tiid.model.db1.CuentasRevisar;
 
 @Configuration
 @EnableTransactionManagement
@@ -36,7 +36,7 @@ public class ConfigDB1DataSources {
 	@Primary
 	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean db1EntityManagerFactory(EntityManagerFactoryBuilder builder,@Qualifier("dataSource") DataSource dataSource) {
-		return builder.dataSource(dataSource).packages(Actividad.class).persistenceUnit("db1").build();
+		return builder.dataSource(dataSource).packages(CuentasRevisar.class).persistenceUnit("db1").build();
 	}
 	
 	@Primary

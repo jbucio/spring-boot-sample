@@ -3,9 +3,13 @@ package mx.tiid.model.db2;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,7 +23,6 @@ import mx.tiid.util.CustomDateTime;
 @Entity
 @Table(name = "pcj_tsolicitudes")
 public class Solicitud implements Serializable {
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -63,7 +66,7 @@ public class Solicitud implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date finProceso;
 
-	@Column(name = "id_proceso",nullable = true)
+	@Column(name = "id_proceso", nullable = true)
 	private int idProceso;
 
 	@Column(name = "creado_por")
@@ -82,6 +85,12 @@ public class Solicitud implements Serializable {
 	@Column(name = "fecha_modificacion")
 	@JsonSerialize(using = CustomDate.class)
 	private Date fechaModificacion;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "solicitud")
+	private Realizadas realizadas;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "solicitud")
+	private Recibidas recibidas;
 
 	public int getIdSolicitud() {
 		return idSolicitud;
@@ -210,6 +219,22 @@ public class Solicitud implements Serializable {
 	public void setFechaModificacion(Date fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
+
+	public Realizadas getRealizadas() {
+		return realizadas;
+	}
+
+	public void setRealizadas(Realizadas realizadas) {
+		this.realizadas = realizadas;
+	}
+
+	 public Recibidas getRecibidas() {
+	 return recibidas;
+	 }
+	
+	 public void setRecibidas(Recibidas recibidas) {
+	 this.recibidas = recibidas;
+	 }
 
 	@Override
 	public int hashCode() {
